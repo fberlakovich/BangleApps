@@ -3,26 +3,24 @@
   var hrmToggle = true; // toggles once for each reading
   var current = 0;
   var recFile; // file for heart rate recording
+  var width = 24;
 
   // draw your widget
   function draw() {
     if (!settings.isRecording) return;
     g.reset();
-    g.setFontAlign(0,0);
-    g.clearRect(this.x,this.y,this.x+23,this.y+23);
+    g.setFont("6x8", 1);
+    g.setFontAlign(-1, 0);
+    g.clearRect(this.x,this.y,this.x+width,this.y+23); // erase background
     g.setColor(hrmToggle?"#ff0000":"#ff8000");
-//    g.fillCircle(this.x+6,this.y+6,4); // draw heart left circle
-//    g.fillCircle(this.x+16,this.y+6,4); // draw heart right circle
-//    g.fillPoly([this.x+2,this.y+8,this.x+20,this.y+8,this.x+11,this.y+18]); // draw heart bottom triangle
-    g.setFont("4x6",2);
-    g.drawString(current,2,2);
+    g.drawString(current, this.x+5, this.y+10);
     g.setColor(-1); // change color back to be nice to other apps
   }
 
   function onHRM(hrm) {
     hrmToggle = !hrmToggle;
-    WIDGETS["heart"].draw();
     current = hrm.bpm
+    WIDGETS["heart"].draw();
     if (recFile) recFile.write([getTime().toFixed(0),hrm.bpm,hrm.confidence].join(",")+"\n");
   }
 
