@@ -58,16 +58,18 @@ function drawsecs() {
   ThsXPos = 5+Tx+g.stringWidth(Ttxt)/2;
   drawms();
 
-  if (mins == 0 && secs == 0) return;
+  if (mins == 0 && secs < 10) return;
 
-  var first = (secs - (secs / 10) * 10);
-  if ((secs / 10) % 3 == 0 && (first == 0 || first == 1)) {
-    if (Tsecs == 0) {
+  var first = (secs - Math.floor(secs / 10) * 10);
+
+  if (Math.floor(secs / 10) % 3 == 0 && (first == 0 || first == 1 || first == 2)) {
+    var hs = Math.floor(t/10)%100;
+    if (hs == 0) {
+      console.log("Beep");
       Bangle.buzz(400, 1);
       Bangle.beep(400, 3700);
     }
   }
-
 }
 
 function drawms() {
