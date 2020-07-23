@@ -46,14 +46,6 @@ function drawsecs() {
   var Ttxt = Tmins+":"+("0"+Tsecs).substr(-2);
   var x = 100;
   var Tx = 125;
-  var first = (secs - (secs / 10) * 10)
-  if ((secs / 10) % 3 == 0 && (first == 1 || first == 2)) {
-    if (Tsecs == 0) {
-      Bangle.buzz(500, 1);
-      Bangle.beep(500, 3700);
-    }
-  }
-
   g.reset(1);
   g.setFont("Vector",38);
   g.setFontAlign(0,0);
@@ -65,6 +57,17 @@ function drawsecs() {
   g.drawString(txt,Tx,TtimeY);
   ThsXPos = 5+Tx+g.stringWidth(Ttxt)/2;
   drawms();
+
+  if (mins == 0 && secs == 0) return;
+
+  var first = (secs - (secs / 10) * 10);
+  if ((secs / 10) % 3 == 0 && (first == 0 || first == 1)) {
+    if (Tsecs == 0) {
+      Bangle.buzz(400, 1);
+      Bangle.beep(400, 3700);
+    }
+  }
+
 }
 
 function drawms() {
@@ -143,3 +146,4 @@ setWatch(function() { // Reset
 updateLabels();
 Bangle.loadWidgets();
 Bangle.drawWidgets();
+
