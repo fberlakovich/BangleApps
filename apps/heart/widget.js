@@ -14,7 +14,8 @@
 //    g.fillCircle(this.x+6,this.y+6,4); // draw heart left circle
 //    g.fillCircle(this.x+16,this.y+6,4); // draw heart right circle
 //    g.fillPoly([this.x+2,this.y+8,this.x+20,this.y+8,this.x+11,this.y+18]); // draw heart bottom triangle
-    g.drawString(current, 23, 23);
+    g.setFont("4x6",2);
+    g.drawString(current,2,2);
     g.setColor(-1); // change color back to be nice to other apps
   }
 
