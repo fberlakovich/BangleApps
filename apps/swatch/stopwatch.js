@@ -64,7 +64,8 @@ function drawsecs() {
 
   if (Math.floor(secs / 10) % 3 == 0 && (first == 0 || first == 1 || first == 2)) {
     var hs = Math.floor(t/10)%100;
-    if (hs == 0) {
+    console.log(hs);
+    if (hs < 10) {
       console.log("Beep");
       Bangle.buzz(400, 1);
       Bangle.beep(400, 3700);
@@ -148,4 +149,5 @@ setWatch(function() { // Reset
 updateLabels();
 Bangle.loadWidgets();
 Bangle.drawWidgets();
+
 
