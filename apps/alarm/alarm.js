@@ -2,6 +2,7 @@
 // 'load(alarm.js)' - so let's remove it first!
 clearInterval();
 
+console.log("alarm.js loaded");
 function formatTime(t) {
   var hrs = 0|t;
   var mins = Math.round((t-hrs)*60);
