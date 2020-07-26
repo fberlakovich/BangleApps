@@ -46,6 +46,7 @@ function editAlarm(alarmIndex) {
   var en = true;
   var repeat = true;
   var as = false;
+  var sleepphases = false;
   if (!newAlarm) {
     var a = alarms[alarmIndex];
     hrs = 0|a.hr;
@@ -53,6 +54,7 @@ function editAlarm(alarmIndex) {
     en = a.on;
     repeat = a.rp;
     as = a.as;
+    sleepphases = a.sp;
   }
   const menu = {
     '': { 'title': 'Alarms' },
@@ -70,7 +72,7 @@ function editAlarm(alarmIndex) {
       onchange: v=>en=v
     },
     'Repeat': {
-      value: en,
+      value: repeat,
       format: v=>v?"Yes":"No",
       onchange: v=>repeat=v
     },
@@ -78,20 +80,30 @@ function editAlarm(alarmIndex) {
       value: as,
       format: v=>v?"Yes":"No",
       onchange: v=>as=v
+    },
+    'Sleep Phases': {
+      value: sleepphases,
+      format: v=>v?"On":"Off",
+      onchange: v=>sleepphases=v
     }
   };
-  function getAlarm() {
-    var hr = hrs+(mins/60);
-    var day = 0;
-    // If alarm is for tomorrow not today (eg, in the past), set day
-    if (hr < getCurrentHr())
-      day = (new Date()).getDate();
-    // Save alarm
-    return {
-      on : en, hr : hr,
-      last : day, rp : repeat, as: as
-    };
-  }
+
+    function getAlarm() {
+        var hr = hrs + (mins / 60);
+        var day = 0;
+        // If alarm is for tomorrow not today (eg, in the past), set day
+        if (hr < getCurrentHr())
+            day = (new Date()).getDate();
+        // Save alarm
+        return {
+            on: en,
+            hr: hr,
+            last: day,
+            rp: repeat,
+            as: as,
+            sp: sleepphases
+        };
+    }
   menu["> Save"] = function() {
     if (newAlarm) alarms.push(getAlarm());
     else alarms[alarmIndex] = getAlarm();
